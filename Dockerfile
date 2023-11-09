@@ -24,5 +24,6 @@ RUN apt-get update && apt-get install -y curl
 
 WORKDIR /app
 COPY ./src /app/src
+COPY ./static /app/static
 
 CMD ["python", "-m", "src"]
