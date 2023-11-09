@@ -16,6 +16,12 @@ class API:
 
 
 @dataclass
+class Static:
+    path: Path = Path(__file__).parent.parent / "static"
+    prefix: str = "/static"
+
+
+@dataclass
 class Secret:
     jwt: str = "secret"
 
@@ -50,6 +56,7 @@ class Logging:
 @dataclass
 class Config:
     api: API
+    static: Static
     secret: Secret
     db: Postgres
     logging: Logging
@@ -57,11 +64,22 @@ class Config:
 
 def load_config_from_env() -> Config:
     raw_path = os.environ.get("LOGGING_PATH")
+    raw_static_path = os.environ.get("STATIC_PATH")
+    if raw_static_path:
+        static_path = Path(raw_static_path)
+    else:
+        static_path = Path(__file__).parent.parent / "static"
+    if not static_path.exists():
+        static_path.mkdir(parents=True, exist_ok=True)
 
     return Config(
         api=API(
             host=os.environ.get("API_HOST", "0.0.0.0"),
             port=int(os.environ.get("API_PORT", 5000)),
+        ),
+        static=Static(
+            path=static_path,
+            prefix=os.environ.get("STATIC_PREFIX", "/static"),
         ),
         secret=Secret(
             jwt=os.environ.get("SECRET_JWT", "secret"),
