@@ -2,7 +2,7 @@ import logging
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import ORJSONResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
@@ -33,10 +33,13 @@ router = APIRouter(
     description="Get current user",
 )
 async def get_current_user(
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(HTTPBearer())],
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(HTTPBearer(auto_error=False))],
     user_repo: Annotated[UserRepo, Depends(Stub(UserRepo))],
     jwt_context: Annotated[JWTContext, Depends(Stub(JWTContext))],
 ) -> User:
+    if not credentials:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+
     token = credentials.credentials
     user_id = UUID(jwt_context.decode(token).sub)
 

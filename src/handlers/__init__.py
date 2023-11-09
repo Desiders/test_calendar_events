@@ -1,4 +1,3 @@
-from .auth import router as auth_router
-from .calendar_events import router as calendar_events_router
+from .api import router as api_router
 from .exceptions import jwt_exception_handler
-from .users import router as users_router
+from .public import router as public_router

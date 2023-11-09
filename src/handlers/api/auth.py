@@ -68,10 +68,11 @@ async def login(
             "model": Token,
             "description": "Registration successful",
         },
-        status.HTTP_400_BAD_REQUEST: {
-            "description": "Invalid credentials",
+        status.HTTP_409_CONFLICT: {
+            "description": "Username already exists",
         },
     },
+    status_code=status.HTTP_201_CREATED,
     response_class=ORJSONResponse,
     description="Register to the API",
 )
@@ -92,7 +93,7 @@ async def register(
 
         await uow.rollback()
 
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username already exists")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Username already exists")
 
     hashed_password = hash_in_crypt_context.hash(password)
 
