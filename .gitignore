@@ -4,6 +4,10 @@ __pycache__/
 .venv/
 venv/
 
+package-lock.json
+
+node_modules/
+
 .vscode/
 
 .env
