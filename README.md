@@ -38,6 +38,10 @@ To stop the server run the following command:
 just down
 ```
 
+## Swagger (docs)
+
+To view swagger docs go to `http://0.0.0.0:5000/docs` or any other host and port you specified in `.env` file.
+
 ## Development
 
 ### Configure tailwindcss
