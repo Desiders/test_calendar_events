@@ -7,7 +7,7 @@ from src.adapters.db.repositories import CalendarEventRepo, UserRepo
 from src.adapters.db.uow import SQLAlchemyUoW
 from src.adapters.hash import HashInCryptContext
 from src.adapters.jwt import JWTContext
-from src.config import Secret as SecretConfig
+from src.config import Secret as SecretConfig, Static as StaticConfig
 
 from .stub import Stub
 
@@ -36,6 +36,7 @@ def setup_providers(
     engine: AsyncEngine,
     session_factory: async_sessionmaker[AsyncSession],
     secret_config: SecretConfig,
+    static_config: StaticConfig,
 ) -> None:
     # Database providers
     app.dependency_overrides[Stub(AsyncEngine)] = lambda: engine
@@ -53,3 +54,6 @@ def setup_providers(
 
     # JWT providers
     app.dependency_overrides[Stub(JWTContext)] = lambda: jwt_context
+
+    # Static providers
+    app.dependency_overrides[Stub(StaticConfig)] = lambda: static_config

@@ -4,13 +4,20 @@ import logging
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
+from fastapi.staticfiles import StaticFiles
 from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
 from src.adapters.db.main import get_engine, get_session_factory
 
-from .config import API as APIConfig, Secret as SecretConfig, configure_logging, load_config_from_env
-from .handlers import auth_router, calendar_events_router, jwt_exception_handler, users_router
+from .config import (
+    API as APIConfig,
+    Secret as SecretConfig,
+    Static as StaticConfig,
+    configure_logging,
+    load_config_from_env,
+)
+from .handlers import api_router, jwt_exception_handler, public_router
 from .providers import setup_providers
 
 logger = logging.getLogger(__name__)
@@ -20,6 +27,7 @@ def init_api(
     engine: AsyncEngine,
     session_factory: async_sessionmaker[AsyncSession],
     secret_config: SecretConfig,
+    static_config: StaticConfig,
     debug: bool = __debug__,
 ) -> FastAPI:
     logger.info("Initializing API")
@@ -31,13 +39,14 @@ def init_api(
         default_response_class=ORJSONResponse,
     )
 
+    app.mount(static_config.prefix, StaticFiles(directory=static_config.path), name="static")
+
     app.add_exception_handler(JWTError, jwt_exception_handler)
 
-    app.include_router(auth_router)
-    app.include_router(users_router)
-    app.include_router(calendar_events_router)
+    app.include_router(api_router)
+    app.include_router(public_router)
 
-    setup_providers(app, engine, session_factory, secret_config)
+    setup_providers(app, engine, session_factory, secret_config, static_config)
 
     return app
 
@@ -66,7 +75,7 @@ async def main() -> None:
     engine = get_engine(config.db)
     session_factory = get_session_factory(engine)
 
-    app = init_api(engine, session_factory, config.secret, config.api.debug)
+    app = init_api(engine, session_factory, config.secret, config.static, config.api.debug)
 
     try:
         await run_api(app, config.api)

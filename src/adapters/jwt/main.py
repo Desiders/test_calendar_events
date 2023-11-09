@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from jose import jwt
+from jose import JWTError, jwt
 
 from .claims import Claims
 
@@ -27,3 +27,10 @@ class JWTContext:
         raw_claims = jwt.decode(token, self._secret, algorithms=[self._algorithm])
 
         return Claims(**raw_claims)
+
+    def verify(self, token: str) -> bool:
+        try:
+            self.decode(token)
+        except JWTError:
+            return False
+        return True
