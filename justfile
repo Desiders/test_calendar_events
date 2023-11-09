@@ -23,3 +23,7 @@ build:
 # Run migration for postgres database
 migrate:
 	docker compose --profile migration up --build
+
+# Compile tailwind css
+tailwindcss:
+	npx tailwindcss -i ./unpublic/css/tailwind.css -o ./static/css/styles.css
