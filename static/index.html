@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Title -->
+    <title>Calendar</title>
+
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Calendar events web application, which allows to create, edit and delete events." />
+    <meta name="keywords" content="calendar, events, web application, crud" />
+    <meta name="author" content="Desiders" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/images/favicon.png" type="image/png">
+</head>
+
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Your calendar events
+                </h1>
+            </div>
+        </div>
+
+        <p><br /></p>
+
+        <div class="w-full flex flex-col items-center mt-4 space-y-4 md:space-y-0 md:mt-6 md:flex-row md:space-x-6">
+            <table class="w-full whitespace-nowrap">
+                <thead>
+                    <tr class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
+                        <th>
+                            <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                                Event
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                                Description
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                                Start date
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                                End date
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="whitespace-nowrap md:text-lg" id="calendar-events">
+                </tbody>
+                <script defer src="/static/js/get-calendar-events.js"></script>
+            </table>
+        </div>
+
+        <p><br /></p>
+
+        <div class="flex w-full flex-col items-center mt-4 space-y-4 md:space-y-0 md:mt-6 md:flex-row md:space-x-6">
+            <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
+                        Add new calendar event
+                    </h1>
+                    <form action="#" id="add-calendar-event-form">
+                        <div class="flex flex-col space-y-1">
+                            <label for="title" class="text-sm font-semibold leading-tight tracking-tight text-gray-900 md:text-base dark:text-white">
+                                Title
+                            </label>
+                            <input type="text" name="title" id="title" class="block w-full px-4 py-2 text-gray-900 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>
+                        </div>
+                        <div class="flex flex-col space-y-1">
+                            <label for="description" class="text-sm font-semibold leading-tight tracking-tight text-gray-900 md:text-base dark:text-white">
+                                Description
+                            </label>
+                            <input type="text" name="description" id="description" class="block w-full px-4 py-2 text-gray-900 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+                        <div
+                            class="flex flex-col space-y-1">
+                            <label for="start-date" class="text-sm font-semibold leading-tight tracking-tight text-gray-900 md:text-base dark:text-white">
+                                Start date
+                            </label>
+                            <input type="datetime-local" name="start-date" id="start-date" class="block w-full px-4 py-2 text-gray-900 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+                        <div class="flex flex-col space-y-1">
+                            <label for="end-date" class="text-sm font-semibold leading-tight tracking-tight text-gray-900 md:text-base dark:text-white">
+                                End date
+                            </label>
+                            <input type="datetime-local" name="end-date" id="end-date" class="block w-full px-4 py-2 text-gray-900 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+                        <div class="flex flex-col space-y-1">
+                            <label for="is-private" class="inline-flex items-center text-sm font-semibold leading-tight tracking-tight text-gray-900 md:text-base dark:text-white">
+                                <input type="checkbox" name="is-private" id="is-private" class="text-blue-500 form-checkbox focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                <span class="ml-2">Is private</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Add event</button>
+                    </form>
+                    <script defer src="/static/js/add-calendar-event.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</html>
