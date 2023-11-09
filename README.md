@@ -37,3 +37,13 @@ To stop the server run the following command:
 ```bash
 just down
 ```
+
+## Development
+
+### Configure tailwindcss
+
+To compile tailwind css run the following command:
+
+```bash
+just tailwindcss
+```
