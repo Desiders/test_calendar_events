@@ -92,3 +92,31 @@ def register(
     return HTMLResponse(
         open(static_config.path / "registration.html").read(),
     )
+
+
+@router.get(
+    "/logout",
+    responses={
+        status.HTTP_307_TEMPORARY_REDIRECT: {
+            "content": {
+                "text/html": {},
+            },
+            "description": "Redirect to login page",
+        },
+    },
+)
+def logout(
+    token: Annotated[
+        str | None,
+        Cookie(
+            alias="ACCESS_TOKEN",
+            description="Access token",
+        ),
+    ] = None,
+):
+    response = RedirectResponse("/auth/login")
+
+    if token:
+        response.delete_cookie("ACCESS_TOKEN")
+
+    return response
