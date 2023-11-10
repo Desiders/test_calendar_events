@@ -13,10 +13,11 @@ function getToken() {
 function getCalendarEvents() {
     console.log("Fetching calendar events...");
 
-    const path = `${window.location.protocol}//${window.location.host}/api/calendar-events/`
+    const api_path = `${window.location.protocol}//${window.location.host}/api/calendar-events/`
+    const public_path = `${window.location.protocol}//${window.location.host}/calendar-events/`;
     const token = getToken();
 
-    fetch(path, {
+    fetch(api_path, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -35,15 +36,29 @@ function getCalendarEvents() {
                 const tableCalendarEvents = document.getElementById("calendar-events");
 
                 data.forEach((calendarEvent) => {
-                    title = calendarEvent.title;
-                    description = calendarEvent.description || "Description not provided";
-                    startDate = calendarEvent.startDate || "Start date not provided";
-                    endDate = calendarEvent.endDate || "End date not provided";
+                    var title = calendarEvent.title;
+                    var description = calendarEvent.description || "Description not provided";
+                    const startDate = calendarEvent.startDate || "Start date not provided";
+                    const endDate = calendarEvent.endDate || "End date not provided";
+                    const url = `${public_path}${calendarEvent.id}`;
+
+                    if (title.length > 30) {
+                        title = `${title.substring(0, 30)}...`;
+                    }
+
+                    if (calendarEvent.description.length > 50) {
+                        description = `${description.substring(0, 50)}...`;
+                    }
 
                     const row = document.createElement("tr");
 
                     const cellEvent = document.createElement("td");
-                    cellEvent.textContent = title;
+                    const cellEventLink = document.createElement("a");
+                    cellEventLink.href = url;
+                    cellEventLink.textContent = title;
+                    cellEventLink.style.color = "blue";
+                    
+                    cellEvent.appendChild(cellEventLink);
                     row.appendChild(cellEvent);
 
                     const cellDescription = document.createElement("td");
