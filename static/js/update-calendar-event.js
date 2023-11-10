@@ -55,7 +55,7 @@ function updateCalendarEvent() {
             },
         }).then((response) => {
             if (response.status === 204) {
-                console.log("Event has been added.");
+                console.log("Event has been updated.");
 
                 // Reload the page to show the updated event.
                 window.location.reload();
@@ -75,12 +75,8 @@ function updateCalendarEvent() {
                 console.log("User is forbidden to update the calendar event.");
 
                 alert("Calendar event is not owned by you. You can't update it.");
-
-                const path = `${window.location.protocol}//${window.location.host}/`;
-
-                window.location.href = path;
             } else {
-                console.log("Unknown status code");
+                console.log(`Unknown status code: ${response.status}`);
             }
         });
     });

@@ -89,7 +89,7 @@ function getCalendarEvents() {
 
             window.location.href = path;
         } else {
-            console.log("Unknown status code");
+            console.log(`Unknown status code: ${response.status}`);
         }
     });
 }

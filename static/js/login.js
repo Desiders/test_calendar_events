@@ -30,7 +30,7 @@ window.onload = (_event) => {
                 // Focus the login field.
                 document.getElementById("login").focus();
             } else {
-                console.log("Unknown status code");
+                console.log(`Unknown status code: ${response.status}`);
             }
         });
     });
