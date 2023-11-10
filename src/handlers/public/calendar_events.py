@@ -45,7 +45,7 @@ def get_calendar_event_by_id(
         ),
     ] = None,
 ):
-    if not token or not jwt_context.verify(token):
+    if token and not jwt_context.verify(token):
         return RedirectResponse("/auth/register")
 
     return HTMLResponse(

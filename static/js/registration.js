@@ -32,6 +32,8 @@ window.onload = (_event) => {
 
                 // Focus the username field.
                 document.getElementById("login").focus();
+            } else {
+                console.log("Unknown status code");
             }
         });
     });

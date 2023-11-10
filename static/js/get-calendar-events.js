@@ -36,8 +36,8 @@ function getCalendarEvents() {
                 const tableCalendarEvents = document.getElementById("calendar-events");
 
                 data.forEach((calendarEvent) => {
-                    var title = calendarEvent.title;
-                    var description = calendarEvent.description || "Description not provided";
+                    let title = calendarEvent.title;
+                    let description = calendarEvent.description || "Description not provided";
                     const startDate = calendarEvent.startDate || "Start date not provided";
                     const endDate = calendarEvent.endDate || "End date not provided";
                     const url = `${public_path}${calendarEvent.id}`;
@@ -46,7 +46,7 @@ function getCalendarEvents() {
                         title = `${title.substring(0, 30)}...`;
                     }
 
-                    if (calendarEvent.description.length > 50) {
+                    if (description.length > 50) {
                         description = `${description.substring(0, 50)}...`;
                     }
 
@@ -80,14 +80,16 @@ function getCalendarEvents() {
             console.log("User is not logged in or token is invalid.");
 
             alert(
-                "You must be logged in to view this page. \
-                If you already have an account, please log in again. \
-                Otherwise, please register for an account."
+                "You must be logged in to view calendar events.\n" +
+                "If you already have an account, please log in again.\n" +
+                "Otherwise, please register for an account."
             );
 
             const path = `${window.location.protocol}//${window.location.host}/auth/register`;
 
             window.location.href = path;
+        } else {
+            console.log("Unknown status code");
         }
     });
 }
