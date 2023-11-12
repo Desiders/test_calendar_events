@@ -7,7 +7,7 @@ services:
     hostname: test_calendar_events.api
     build:
       context: .
-    restart: unless-stopped
+    restart: "unless-stopped"
     expose:
       - 5000
     ports:
@@ -25,7 +25,7 @@ services:
     container_name: test_calendar_events.postgres
     image: "postgres:15-alpine"
     hostname: test_calendar_events.postgres
-    restart: unless-stopped
+    restart: "unless-stoppe"
     expose:
       - "5432"
     ports:
@@ -44,13 +44,13 @@ services:
       timeout: 60s
       retries: 5
       start_period: 10s
-  
+
   postgres_migration:
     profiles: [ "migration" ]
     container_name: test_calendar_events.postgres_migration
     build:
       context: .
-    restart: no
+    restart: "no"
     networks:
       - test_calendar_events.postgres.network
     env_file:
