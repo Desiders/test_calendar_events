@@ -27,11 +27,8 @@ window.onload = (_event) => {
                 // Clear the password field.
                 document.getElementById("password").value = "";
 
-                // Clear the confirm password field.
-                document.getElementById("confirm-password").value = "";
-
                 // Focus the username field.
-                document.getElementById("login").focus();
+                document.getElementById("username").focus();
             } else {
                 console.log(`Unknown status code: ${response.status}`);
             }

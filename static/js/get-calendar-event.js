@@ -43,10 +43,10 @@ function getCalendarEvents() {
             response.json().then((calendarEvent) => {
                 const tableCalendarEvents = document.getElementById("calendar-event");
 
-                const title = calendarEvent.title;
-                const description = calendarEvent.description || "Description not provided";
-                const startDate = calendarEvent.startDate || "Start date not provided";
-                const endDate = calendarEvent.endDate || "End date not provided";
+                const title = calendarEvent["title"];
+                const description = calendarEvent["description"] || "Not specified";
+                const startDate = calendarEvent["start_date"] || "Not specified";
+                const endDate = calendarEvent["end_date"] || "Not specified";
 
                 const row = document.createElement("tr");
 

@@ -36,10 +36,10 @@ function getCalendarEvents() {
                 const tableCalendarEvents = document.getElementById("calendar-events");
 
                 data.forEach((calendarEvent) => {
-                    let title = calendarEvent.title;
-                    let description = calendarEvent.description || "Description not provided";
-                    const startDate = calendarEvent.startDate || "Start date not provided";
-                    const endDate = calendarEvent.endDate || "End date not provided";
+                    let title = calendarEvent["title"];
+                    let description = calendarEvent["description"] || "Not specified";
+                    const startDate = calendarEvent["start_date"] || "Not specified";
+                    const endDate = calendarEvent["end_date"] || "Not specified";
                     const url = `${public_path}${calendarEvent.id}`;
 
                     if (title.length > 30) {

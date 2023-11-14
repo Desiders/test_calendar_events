@@ -25,7 +25,7 @@ services:
     container_name: test_calendar_events.postgres
     image: "postgres:15-alpine"
     hostname: test_calendar_events.postgres
-    restart: "unless-stoppe"
+    restart: "unless-stopped"
     expose:
       - "5432"
     ports:

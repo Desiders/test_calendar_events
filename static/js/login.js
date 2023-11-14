@@ -27,8 +27,8 @@ window.onload = (_event) => {
                 // Clear the password field.
                 document.getElementById("password").value = "";
 
-                // Focus the login field.
-                document.getElementById("login").focus();
+                // Focus the username field.
+                document.getElementById("username").focus();
             } else {
                 console.log(`Unknown status code: ${response.status}`);
             }
